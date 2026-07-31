@@ -1,0 +1,25 @@
+{
+  "title": "Ostrich SDK",
+  "description": "Learn & Demo the Ostrich SDK",
+  "details": {
+      "intro": {
+      "text": "intro.md",
+      "foreground": "foreground.sh"
+    },
+    "steps": [
+      {
+        "title": "Simple commands",
+        "text": "step1.md"
+      }
+    ],
+    "assets": {
+      "host01": [
+        {"file": "secret/**", "target": "~/", "chmod": "+w"},
+        {"file": "config/.bashrc", "target": "~/", "chmod": "+w"}
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
