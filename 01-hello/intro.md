@@ -12,3 +12,5 @@
                                    |___/ \__,_||_|\_\
 ```
 
+In this scenario, we will explore basic Ostrich SDK functionalities.
+

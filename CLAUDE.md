@@ -6,48 +6,126 @@ This repository (`ostrich-demo`) contains interactive demo and tutorial scenario
 
 The scenarios are built in **Killercoda** format (`https://killercoda.com`), providing an interactive browser-based terminal environment where users can learn and experiment with Ostrich SDK features.
 
-Reference examples for all Killercoda features are available in `../scenario-examples/`.
+Official reference documentation: [https://killercoda.com/creators](https://killercoda.com/creators).  
+Example scenarios: `../scenario-examples/`.
 
 ---
 
-## Scenario File Structure (Killercoda Format)
+## Repository & Course Structure (`structure.json`)
 
-Each scenario is located in its own subfolder (e.g. `01-basic/`, `02-.../`). A complete Killercoda scenario consists of the following components within its folder:
+Scenarios are organized into numbered subdirectories (e.g. `01-basic/`, `02-advanced/`).
 
-- **`index.json`**: Scenario manifest defining structure and runtime setup:
-  - `title` & `description`: Metadata displayed in the scenario hub.
-  - `details.intro`: Entry screen object (`text`: `intro.md`, `foreground`: `foreground.sh`, `background`: `background.sh`).
-  - `details.steps`: Ordered list of steps, each with `title`, `text` (markdown file), optional `verify` (shell script), `foreground`, and `background`.
-  - `details.finish`: Optional finish step screen (`text`, `foreground`, `background`).
-  - `details.assets`: Host file deployment mappings (e.g. `host01`).
-  - `backend`: Target environment specification (e.g. `"imageid": "ubuntu"` or `"kubernetes-1node"`).
+To group scenarios into structured learning paths or control display order on Killercoda, a `structure.json` file can be placed at the root level:
 
-- **`intro.md`**: Welcome screen and ascii banner displayed when starting the environment.
+```json
+{
+  "title": "Ostrich SDK Training",
+  "description": "Learn to package, deploy, and manage workloads using Ostrich SDK",
+  "items": [
+    { "path": "01-basic" },
+    { "path": "02-advanced", "title": "Advanced Osplate & Plugin Orchestration" }
+  ]
+}
+```
 
-- **`step1.md`, `step2.md`, ...**: Markdown step guides containing instructions, tips, and interactive command blocks.
-
-- **`foreground.sh` / `background.sh`**: Provisioning scripts. `foreground.sh` runs visibly in the terminal on environment setup (e.g. cloning `ostrich-sdk`, preparing python venv `/rockdemo/venv`, installing `requirements.txt`). `background.sh` executes silently in the background.
-
-- **`verify.sh`**: Verification script for a step. Must exit with return code `0` when conditions are satisfied, or non-zero when unfulfilled.
-
-- **`assets/`**: Supplementary file assets deployed to target hosts during environment creation.
+> **Note:** When `structure.json` is present, Killercoda strictly includes only items listed in `items`.
 
 ---
 
-## Killercoda Markdown Extensions & Interactive Syntax
+## Scenario File Format Specification (`index.json`)
 
-Killercoda supports special annotations attached to code blocks for interactive terminal execution:
+Each scenario directory contains an `index.json` manifest defining metadata, workflow steps, background/foreground scripts, assets, backend image, and UI layout:
 
-| Syntax Annotation | Description |
+```json
+{
+  "title": "Ostrich SDK - Basic Commands",
+  "description": "Learn basic ost commands, registries, and osplates",
+  "difficulty": "Beginner",
+  "time": "10",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "foreground.sh",
+      "background": "background.sh"
+    },
+    "steps": [
+      {
+        "title": "Simple commands",
+        "text": "step1.md",
+        "verify": "step1-verify.sh",
+        "foreground": "step1-fg.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        { "file": "secret/**", "target": "~/", "chmod": "+w" },
+        { "file": "config/.bashrc", "target": "~/", "chmod": "+w" }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  },
+  "interface": {
+    "layout": "terminal"
+  }
+}
+```
+
+### `index.json` Field Details
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `title` | String | Scenario title shown on Killercoda |
+| `description` | String | Short summary of the scenario's learning objectives |
+| `difficulty` | String | (Optional) `"Beginner"`, `"Intermediate"`, or `"Advanced"` |
+| `time` | String | (Optional) Estimated duration in minutes (e.g. `"10"`) |
+| `details.intro` | Object | Entry screen config (`text`, optional `foreground`, optional `background`) |
+| `details.steps` | Array | Ordered step list (`title`, `text`, optional `verify`, `foreground`, `background`) |
+| `details.finish` | Object | (Optional) Conclusion screen (`text`, `foreground`, `background`) |
+| `details.assets` | Object | Target host file mappings (`host01` array of source glob, destination target, and chmod) |
+| `backend.imageid` | String | Target environment image (`ubuntu`, `ubuntu-4GB`, `kubernetes-kubeadm-1node`, `kubernetes-kubeadm-2node`) |
+| `interface.layout` | String | (Optional) UI layout style (`terminal`, `ide` for Theia/VS Code, `editor-terminal`) |
+
+---
+
+## Provisioning & Verification Scripts
+
+1. **Foreground Script (`foreground.sh`)**:
+   - Runs visibly in the user's interactive terminal upon starting a step or intro screen.
+   - Example: Preparing Python venv `/rockdemo/venv`, cloning `ostrich-sdk`, installing `requirements.txt`.
+
+2. **Background Script (`background.sh`)**:
+   - Runs asynchronously in the background during setup. Output logs are visible in the Killercoda Creator Debug Dashboard.
+
+3. **Verification Script (`verify.sh`)**:
+   - Triggered when the user clicks the "Check" or "Verify" button for a step.
+   - Must return exit code `0` for success or non-zero for failure:
+     ```bash
+     #!/bin/bash
+     # Verify that ost command or file output exists
+     test -f /rockdemo/venv/bin/ost && exit 0 || exit 1
+     ```
+
+---
+
+## Killercoda Markdown Interactive Syntax
+
+Killercoda supports custom code block annotations for terminal interactivity:
+
+| Syntax Annotation | Action / Behavior |
 | :--- | :--- |
-| `` `command` {{exec}} `` | Runs inline bash command in the terminal on click |
-| ` ```bash ... ```{{exec}} ` | Runs multiline bash code block in the terminal on click |
-| `` `command` {{exec interrupt}} `` | Sends `Ctrl+C` to terminate any running process, then executes command |
-| `` `text` {{copy}} `` | Displays explicit copy button for snippet |
-| `` `text` {{}} `` | Disables automatic click-to-copy on inline code |
+| `` `command` {{exec}} `` | Executes inline bash command in the terminal on click |
+| ` ```bash ... ```{{exec}} ` | Executes multiline bash block in terminal on click |
+| `` `command` {{exec interrupt}} `` | Sends `Ctrl+C` to terminate active process, then executes command |
+| `` `snippet` {{copy}} `` | Adds explicit copy button for snippet |
+| `` `snippet` {{}} `` | Disables click-to-copy on inline code block |
 
-### Solutions & Hints (Details Accordion)
-Use standard `<details>` blocks for tips and solutions:
+### Hints & Solution Accordions
+Use HTML `<details>` accordions to embed executable hints and solutions:
 
 ```html
 <details><summary>Tip</summary>
@@ -69,9 +147,9 @@ ost template list
 
 ---
 
-## Asset Deployment (`index.json` `details.assets`)
+## Asset Deployment & Security
 
-Host asset files inside `assets/` are mapped in `index.json`:
+Asset files inside scenario `assets/` subdirectories are transferred to target host locations based on `details.assets` rules.
 
 ```json
 "assets": {
@@ -84,19 +162,18 @@ Host asset files inside `assets/` are mapped in `index.json`:
 ```
 
 > [!IMPORTANT]
-> Any `secret` directory within scenario asset folders (e.g. `01-basic/assets/secret`, `*/assets/secret`, `**/secret`) is ignored by `.gitignore` to prevent committing sensitive tokens or passwords to git.
-
+> Any `secret` directory within scenario asset folders (e.g. `01-basic/assets/secret`, `*/assets/secret`, `**/secret`) is ignored by `.gitignore` to prevent committing sensitive tokens or credentials to git.
 
 ---
 
-## Scenario Writing Guidelines & Standards
+## Scenario Writing Best Practices for Ostrich SDK
 
-1. **Interactive Execution**: Always use `{{exec}}` or `{{exec interrupt}}` on code blocks intended for user execution.
-2. **Step Verification**: Provide verification scripts (`verify.sh`) for steps wherever automated validation is feasible.
-3. **Clear Progression**:
-   - **Step 1**: Environment setup, Ostrich CLI overview (`ost help`, `ost template list`, `ost registry list`).
-   - **Step 2**: Searching & pulling osplates from OCI registries (ghcr.io, harbor).
-   - **Step 3**: Creating plugins (`ostrich.yaml`) and parameterizing configurations.
-   - **Step 4**: Executing local deployments using `ostd`.
-   - **Step 5**: Remote Kubernetes orchestration using `ostr`.
-4. **Maintain `index.json`**: Ensure all steps, scripts, and asset mappings are registered in `index.json`.
+1. **Ensure Interactivity**: Mark executable commands with `{{exec}}` or `{{exec interrupt}}`.
+2. **Automated Verification**: Include `verify.sh` scripts for steps whenever validation is possible.
+3. **Structured Progression**:
+   - **Scenario 01 (Basic)**: Environment setup, `ost help`, `ost template list`, `ost registry list`.
+   - **Scenario 02 (Osplates & Registries)**: Searching, pulling, and describing osplates from ghcr.io / Harbor.
+   - **Scenario 03 (Plugins & Config)**: Defining `ostrich.yaml` plugins, overriding Jinja2 parameters (`[[` `]]`).
+   - **Scenario 04 (Local Execution with `ostd`)**: Sandboxed container execution.
+   - **Scenario 05 (Remote K8s Orchestration with `ostr`)**: SSH tunnel synchronization and remote task execution.
+4. **Keep Manifests In Sync**: Ensure every file in a scenario folder is registered in `index.json`.
