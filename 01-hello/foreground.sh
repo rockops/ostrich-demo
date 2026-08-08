@@ -1,5 +1,7 @@
 echo "=== Cloning ostrich-sdk ==="
 
+DEBIAN_FRONTEND=noninteractive
+apt update
 apt install -y python3-venv || true
 
 mkdir -p /rockdemo/venv
