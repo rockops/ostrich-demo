@@ -21,7 +21,7 @@ fi
 
 dpkg -i glow_${GLOW_VERSION}_amd64.deb
 
-apt install python3-venv
+apt install -y python3-venv || true
 
 mkdir -p /rockdemo/venv
 if [ ! -d /rockdemo/venv/bin ]; then
@@ -34,3 +34,4 @@ if [ -n "$TOKEN" ]; then
     HELM_CONFIG_HOME="/root/.ostrich/helm/config" helm registry login ghcr.io -u "$USER" -p "$TOKEN"
 fi
 
+cd /root
