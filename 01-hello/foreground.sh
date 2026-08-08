@@ -2,6 +2,7 @@ echo "=== Cloning ostrich-sdk ==="
 
 GLOW_VERSION=2.1.2
 
+mkdir -p /rockdemo
 cd /rockdemo
 
 if [ ! -f helm ]; then
@@ -20,27 +21,12 @@ fi
 
 dpkg -i glow_${GLOW_VERSION}_amd64.deb
 
-#TOKEN=$(test -f "/root/secret/github.txt" && cat /root/secret/github.txt && echo "@")
-
-# if [ -d /rockdemo/ostrich-sdk ]; then
-#     cd /rockdemo/ostrich-sdk
-#     git pull
-#     cd /rockdemo
-# else
-#     git clone -b feat/pip-install "https://${TOKEN}github.com/rockops/ostrich-sdk.git" "/rockdemo/ostrich-sdk"
-# fi
+apt install python3-venv
 
 mkdir -p /rockdemo/venv
 if [ ! -d /rockdemo/venv/bin ]; then
     python3 -m venv /rockdemo/venv
 fi
-
-#cd "/rockdemo/ostrich-sdk/ost-core"
-#/rockdemo/venv/bin/pip install --upgrade pip
-#/rockdemo/venv/bin/pip install -r requirements.txt
-
-# cd /rockdemo/ostrich-sdk
-# /rockdemo/venv/bin/pip install ./ost-core
 
 USER="USERNAME"
 TOKEN=$(test -f "/root/secret/github_read_osplates.txt" && cat /root/secret/github_read_osplates.txt)
