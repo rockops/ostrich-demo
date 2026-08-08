@@ -155,7 +155,9 @@ You can check that the message in **template.params.message** is printed.
 
 Open the file in another tab, then save your modification and go back to the tab demo to execute the task again:
 
-`/root/hello-test/ostrich.yaml`{{open}}
+```
+Hey
+```{{open /root/hello-test/ostrich.yaml}}
 
 Now run the task again, and check that the message has changed:
 
