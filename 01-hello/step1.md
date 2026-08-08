@@ -111,9 +111,7 @@ cat ostrich.yaml
 
 or open the file in a new tab:
 
-```text
-/root/hello-test/ostrich.yaml
-```{{open}}
+`/root/hello-test/ostrich.yaml`{{open}}
 
 ### Configuration Structure Explanation:
 
@@ -157,9 +155,7 @@ You can check that the message in **template.params.message** is printed.
 
 Open the file in another tab, then save your modification and go back to the tab demo to execute the task again:
 
-```text
-/root/hello-test/ostrich.yaml
-```{{open}}
+`/root/hello-test/ostrich.yaml`{{open}}
 
 Now run the task again, and check that the message has changed:
 
