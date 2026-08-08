@@ -1,21 +1,26 @@
 # Basic ost commands
 
-## Install Ostrich SDK
+## Install Ostrich docker CLI ostd
 
-Install Ostrich SDK from source (https://github.com/rockops/ostrich-sdk).
+The only requirement is to have Docker installed.
 
 ```bash
-pip install ostrich-sdk
+TOKEN=$(cat /root/secret/github.txt)
+ASSET_URL=$(curl -sH "Authorization: token $TOKEN" https://api.github.com/repos/rockops/ostrich-sdk/releases/tags/v0.2.5 | jq -r '.assets[] | select(.name=="ostd-linux-amd64") | .url')
+curl -sH "Authorization: token $TOKEN" -H "Accept: application/octet-stream" -L -o /usr/local/bin/ostd "$ASSET_URL"
+chmod +x /usr/local/bin/ostd
+TOKEN=$(cat /root/secret/github_read_osplates.txt)
+docker login ghcr.io -u rockops -p $TOKEN
 ```{{exec}}
 
 ## Help command
 
-The `ost` CLI is the main engine script for the Ostrich SDK.
+The `ostd` CLI is the dockerized CLI Ostrich SDK.
 
-Get general help and list main operations for the `ost` command:
+Get general help and list main operations for the `ostd` command:
 
 ```bash
-ost help
+ostd help
 ```{{exec}}
 
 ---
@@ -29,7 +34,7 @@ Templates (**osplates**) are hosted in **OCI registries**. You can manage config
 Display all currently configured registries:
 
 ```bash
-ost registry list
+ostd registry list
 ```{{exec}}
 
 The default **`ostrich`** registry (`ghcr.io/rockops/osplate`) is pre-configured and contains generic templates.
@@ -52,7 +57,9 @@ Every deployment use case in Ostrich SDK is handled by a **template** (also call
 Display locally installed templates:
 
 ```bash
-ost template list
+TOKEN=$(cat /root/secret/github_read_osplates.txt)
+ostd registry login ostrich -u rockops -p $TOKEN
+ostd template list
 ```{{exec}}
 
 *(Note: Initially, no custom templates are installed locally.)*
@@ -62,7 +69,7 @@ ost template list
 Search configured OCI registries for published osplates:
 
 ```bash
-ost template search
+ostd template search
 ```{{exec}}
 
 This command lists the templates avaibale in the configured registries.
@@ -73,13 +80,13 @@ At the moment only the official "ostrich" registry is configured, which contains
 To install the *hello* template from the *ostrich* registry:
 
 ```bash
-ost template install ostrich/hello
+ostd template install ostrich/hello
 ```{{exec}}
 
 List the installed templates again
 
 ```bash
-ost template list
+ostd template list
 ```{{exec}}
 
 ### Print the description of an installed osplate
@@ -87,7 +94,7 @@ ost template list
 The osplate is auto documented. Print the description of the installed osplate:
 
 ```bash
-ost template describe hello
+ostd template describe hello
 ```{{exec}}
 
 ### Generate a sample config file
@@ -95,9 +102,9 @@ ost template describe hello
 To bootstrap a config file you can use the following command:
 
 ```bash
-mkdir -p hello-test
-cd hello-test
-ost template config hello > ostrich.yaml
+mkdir -p /root/hello-test
+cd /root/hello-test
+ostd template config hello > ostrich.yaml
 chmod 777 ostrich.yaml
 ```{{exec}}
 
@@ -145,7 +152,7 @@ The **template** section is specific to the osplate you are using. It describes 
 To run a task defined in the osplate you can use the following command:
 
 ```bash
-ost run sayhello
+ostd run sayhello
 ```{{exec}}
 
 This will execute the *sayhello* task
@@ -164,7 +171,7 @@ Open the file in another tab, then save your modification and go back to the tab
 Now run the task again, and check that the message has changed:
 
 ```bash
-ost run sayhello
+ostd run sayhello
 ```{{exec}}
 
 #### Execute in debug mode
@@ -172,7 +179,7 @@ ost run sayhello
 You can also execute in DEBUG mode. In this mode, you will see more information about the execution of the task, as well as debug messages explicitly printed by the osplate itself. Run this command to see the difference (add -d or --debug flag):
 
 ```bash
-ost -d run sayhello
+ostd -d run sayhello
 ```{{exec}}
 
 

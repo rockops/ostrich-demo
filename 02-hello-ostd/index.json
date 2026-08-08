@@ -1,6 +1,6 @@
 {
   "title": "Ostrich SDK",
-  "description": "Learn & Demo the Ostrich SDK",
+  "description": "Use the ostd cli",
   "details": {
     "intro": {
       "text": "intro.md",
@@ -15,13 +15,13 @@
     "assets": {
       "host01": [
         {
-          "file": "secret/**",
-          "target": "~/",
+          "file": "secret/github.txt",
+          "target": "~/secret",
           "chmod": "+r"
         },
         {
-          "file": "config/.bashrc",
-          "target": "~/",
+          "file": "secret/github_read_osplates.txt",
+          "target": "~/secret",
           "chmod": "+r"
         },
         {
