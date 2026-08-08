@@ -1,5 +1,12 @@
 echo "=== Cloning ostrich-sdk ==="
 
+apt install -y python3-venv || true
+
+mkdir -p /rockdemo/venv
+if [ ! -d /rockdemo/venv/bin ]; then
+    python3 -m venv /rockdemo/venv
+fi
+
 GLOW_VERSION=2.1.2
 
 mkdir -p /rockdemo
@@ -20,13 +27,6 @@ if [ ! -f glow_${GLOW_VERSION}_amd64.deb ]; then
 fi
 
 dpkg -i glow_${GLOW_VERSION}_amd64.deb
-
-apt install -y python3-venv || true
-
-mkdir -p /rockdemo/venv
-if [ ! -d /rockdemo/venv/bin ]; then
-    python3 -m venv /rockdemo/venv
-fi
 
 USER="USERNAME"
 TOKEN=$(test -f "/root/secret/github_read_osplates.txt" && cat /root/secret/github_read_osplates.txt)
