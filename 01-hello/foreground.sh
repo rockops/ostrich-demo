@@ -1,7 +1,7 @@
 echo "=== Cloning ostrich-sdk ==="
 
 export DEBIAN_FRONTEND=noninteractive
-export export NEEDRESTART_MODE=a
+export NEEDRESTART_MODE=a
 
 apt-get install -y -qq python3-venv
 
