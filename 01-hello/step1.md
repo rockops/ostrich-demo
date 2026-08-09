@@ -2,7 +2,7 @@
 
 ## Install Ostrich SDK
 
-Install Ostrich SDK from source (https://github.com/rockops/ostrich-sdk).
+Install Ostrich SDK (source code: https://github.com/rockops/ostrich-sdk).
 
 ```bash
 pip install ostrich-sdk
@@ -121,26 +121,26 @@ or open the file in a new tab:
 
 The `ostrich.yaml` file above represents a **plugin descriptor**. It defines the configuration for a plugin that the Ostrich SDK will execute. Here's a breakdown of its structure and how it relates to osplates:
 
-The **plugin** section is common to all osplates. It describes what you want to build (your own stuff). 
-
-<ul>
-<li> **`plugin`**: Defines the metadata for your plugin:</li>
-<ul>
-  <li>`name`: Unique identifier for your plugin instance (`simple-test`).</li>
-  <li>`version`: Version string of the plugin (`0.0.1`).</li>
-  <li>`business_name`: Human-readable label or description of the plugin.</li>
-</ul>
-</ul>
-
-The **template** section is specific to the osplate you are using. It describes how to build your stuff.
-
-<ul>
-<li>**`template`**: Defines the osplate execution settings:</li>
-<ul>
-  <li>`kind`: Specifies the osplate template type (`hello`): the osplate name.</li>
-  <li>`params`: Custom key-value variables passed to template tasks (such as `message`).</li>
-</ul>
-</ul>
+>The **plugin** section is common to all osplates. It >describes what you want to build (your own stuff). 
+>
+><ul>
+><li> <b>plugin</b>: Defines the metadata for your >plugin:</li>
+><ul>
+>  <li><i>name</i>: Unique identifier for your plugin >instance (`simple-test`).</li>
+>  <li><i>version</i>: Version string of the plugin >(`0.0.1`).</li>
+>  <li><i>business_name</i>: Human-readable label or >description of the plugin.</li>
+></ul>
+></ul>
+>
+>The **template** section is specific to the osplate you >are using. It describes how to build your stuff.
+>
+><ul>
+><li><b>template</b>: Defines the osplate execution settings:</li>
+><ul>
+>  <li><i>kind</i>: Specifies the osplate template type (`hello`): the osplate name.</li>
+>  <li><i>params</i>: Custom key-value variables passed to template tasks (such as `message`).</li>
+></ul>
+></ul>
 
 ### Execute a task
 
