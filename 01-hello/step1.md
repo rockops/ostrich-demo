@@ -35,11 +35,11 @@ ost registry list
 The default **`ostrich`** registry (`ghcr.io/rockops/osplate`) is pre-configured and contains generic templates.
 
 > **Supported Registries:** Ostrich SDK supports any OCI-compliant registry. Search functionality is natively optimized for:<br/>
-> - **ghcr.io** (GitHub Container Registry)<br/>
+> - **ghcr.io** (GitHub Container Registry) [requires authentication]<br/>
 > - **Harbor** (Self-hosted private registry)<br/>
+> For the other OCI-compliant registries the `ost template search` command works with lower performance. 
 
 You can register additional OCI registries to pull osplates from (this is in a next demo).
-
 
 ---
 

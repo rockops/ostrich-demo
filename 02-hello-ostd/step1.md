@@ -5,12 +5,8 @@
 The only requirement is to have Docker installed.
 
 ```bash
-TOKEN=$(cat /root/secret/github.txt)
-ASSET_URL=$(curl -sH "Authorization: token $TOKEN" https://api.github.com/repos/rockops/ostrich-sdk/releases/tags/v0.2.5 | jq -r '.assets[] | select(.name=="ostd-linux-amd64") | .url')
-curl -sH "Authorization: token $TOKEN" -H "Accept: application/octet-stream" -L -o /usr/local/bin/ostd "$ASSET_URL"
+curl -L -o /usr/local/bin/ostd "https://github.com/rockops/ostrich-sdk/releases/latest/download/ostd-linux-amd64"
 chmod +x /usr/local/bin/ostd
-TOKEN=$(cat /root/secret/github_read_osplates.txt)
-docker login ghcr.io -u rockops -p $TOKEN
 ```{{exec}}
 
 ## Help command
@@ -42,6 +38,7 @@ The default **`ostrich`** registry (`ghcr.io/rockops/osplate`) is pre-configured
 > **Supported Registries:** Ostrich SDK supports any OCI-compliant registry. Search functionality is natively optimized for:<br/>
 > - **ghcr.io** (GitHub Container Registry)<br/>
 > - **Harbor** (Self-hosted private registry)<br/>
+> For the other OCI-compliant registries the `ostd template search` command works with lower performance.
 
 You can register additional OCI registries to pull osplates from (this is in a next demo).
 
@@ -57,8 +54,6 @@ Every deployment use case in Ostrich SDK is handled by a **template** (also call
 Display locally installed templates:
 
 ```bash
-TOKEN=$(cat /root/secret/github_read_osplates.txt)
-ostd registry login ostrich -u rockops -p $TOKEN
 ostd template list
 ```{{exec}}
 

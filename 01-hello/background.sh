@@ -12,7 +12,6 @@ fi
 
 GLOW_VERSION=2.1.2
 
-mkdir -p /rockdemo
 cd /rockdemo
 
 if [ ! -f helm ]; then
@@ -30,11 +29,5 @@ if [ ! -f glow_${GLOW_VERSION}_amd64.deb ]; then
 fi
 
 dpkg -i glow_${GLOW_VERSION}_amd64.deb
-
-USER="USERNAME"
-TOKEN=$(test -f "/root/secret/github_read_osplates.txt" && cat /root/secret/github_read_osplates.txt)
-if [ -n "$TOKEN" ]; then
-    HELM_CONFIG_HOME="/root/.ostrich/helm/config" helm registry login ghcr.io -u "$USER" -p "$TOKEN"
-fi
 
 touch /tmp/finished
