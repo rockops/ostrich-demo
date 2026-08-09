@@ -109,9 +109,13 @@ Check the generated config:
 cat ostrich.yaml
 ```{{exec}}
 
+<!--rockdemo
 or open the file in a new tab:
 
-`/root/hello-test/ostrich.yaml`{{open}}
+```
+/root/hello-test/ostrich.yaml
+```{{open}}
+-->
 
 ### Configuration Structure Explanation:
 
@@ -153,13 +157,19 @@ You can check that the message in **template.params.message** is printed.
 
 #### Modify the config file
 
-<!-- Single-line comment -->
+Open the file, then save your modification and go back to the tab demo to execute the task again:
 
-Open the file in another tab, then save your modification and go back to the tab demo to execute the task again:
+```bash
+nano /root/hello-test/ostrich.yaml
+```{{exec}}
+
+<!--rockdemo
+**or**
 
 ```
-Hey
-```{{open /root/hello-test/ostrich.yaml}}
+/root/hello-test/ostrich.yaml
+```{{open}}
+-->
 
 Now run the task again, and check that the message has changed:
 
@@ -174,6 +184,3 @@ You can also execute in DEBUG mode. In this mode, you will see more information 
 ```bash
 ost -d run sayhello
 ```{{exec}}
-
-
-
