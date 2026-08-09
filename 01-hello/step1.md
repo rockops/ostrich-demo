@@ -153,6 +153,8 @@ You can check that the message in **template.params.message** is printed.
 
 #### Modify the config file
 
+<!-- Single-line comment -->
+
 Open the file in another tab, then save your modification and go back to the tab demo to execute the task again:
 
 ```
