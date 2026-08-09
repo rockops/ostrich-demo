@@ -121,24 +121,24 @@ or open the file in a new tab:
 
 The `ostrich.yaml` file above represents a **plugin descriptor**. It defines the configuration for a plugin that the Ostrich SDK will execute. Here's a breakdown of its structure and how it relates to osplates:
 
->The **plugin** section is common to all osplates. It >describes what you want to build (your own stuff). 
+>The **plugin** section is common to all osplates. It describes what you want to build (your own stuff). 
 >
 ><ul>
-><li> <b>plugin</b>: Defines the metadata for your >plugin:</li>
+><li> <b>plugin</b>: Defines the metadata for your plugin:</li>
 ><ul>
->  <li><i>name</i>: Unique identifier for your plugin >instance (`simple-test`).</li>
+>  <li><i>name</i>: Unique identifier for your plugin instance (`simple-test`).</li>
 >  <li><i>version</i>: Version string of the plugin >(`0.0.1`).</li>
 >  <li><i>business_name</i>: Human-readable label or >description of the plugin.</li>
 ></ul>
 ></ul>
 >
->The **template** section is specific to the osplate you >are using. It describes how to build your stuff.
+>The **template** section is specific to the osplate you are using. It describes how to build your stuff.
 >
 ><ul>
 ><li><b>template</b>: Defines the osplate execution settings:</li>
 ><ul>
->  <li><i>kind</i>: Specifies the osplate template type (`hello`): the osplate name.</li>
->  <li><i>params</i>: Custom key-value variables passed to template tasks (such as `message`).</li>
+>  <li><i>kind</i>: Specifies the osplate template type (<i>hello</i>): the osplate name.</li>
+>  <li><i>params</i>: Custom key-value variables passed to template tasks (such as <i>message</i>).</li>
 ></ul>
 ></ul>
 

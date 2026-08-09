@@ -116,36 +116,39 @@ Check the generated config:
 cat ostrich.yaml
 ```{{exec}}
 
+<!--rockdemo
 or open the file in a new tab:
 
-```text
+```
 /root/hello-test/ostrich.yaml
 ```{{open}}
+-->
 
 ### Configuration Structure Explanation:
 
 The `ostrich.yaml` file above represents a **plugin descriptor**. It defines the configuration for a plugin that the Ostrich SDK will execute. Here's a breakdown of its structure and how it relates to osplates:
 
-The **plugin** section is common to all osplates. It describes what you want to build (your own stuff). 
+>The **plugin** section is common to all osplates. It describes what you want to build (your own stuff). 
+>
+><ul>
+><li> <b>plugin</b>: Defines the metadata for your plugin:</li>
+><ul>
+>  <li><i>name</i>: Unique identifier for your plugin instance (`simple-test`).</li>
+>  <li><i>version</i>: Version string of the plugin >(`0.0.1`).</li>
+>  <li><i>business_name</i>: Human-readable label or >description of the plugin.</li>
+></ul>
+></ul>
+>
+>The **template** section is specific to the osplate you are using. It describes how to build your stuff.
+>
+><ul>
+><li><b>template</b>: Defines the osplate execution settings:</li>
+><ul>
+>  <li><i>kind</i>: Specifies the osplate template type (<i>hello</i>): the osplate name.</li>
+>  <li><i>params</i>: Custom key-value variables passed to template tasks (such as <i>message</i>).</li>
+></ul>
+></ul>
 
-<ul>
-<li> **`plugin`**: Defines the metadata for your plugin:</li>
-<ul>
-  <li>`name`: Unique identifier for your plugin instance (`simple-test`).</li>
-  <li>`version`: Version string of the plugin (`0.0.1`).</li>
-  <li>`business_name`: Human-readable label or description of the plugin.</li>
-</ul>
-</ul>
-
-The **template** section is specific to the osplate you are using. It describes how to build your stuff.
-
-<ul>
-<li>**`template`**: Defines the osplate execution settings:</li>
-<ul>
-  <li>`kind`: Specifies the osplate template type (`hello`): the osplate name.</li>
-  <li>`params`: Custom key-value variables passed to template tasks (such as `message`).</li>
-</ul>
-</ul>
 
 ### Execute a task
 
@@ -162,17 +165,26 @@ You can check that the message in **template.params.message** is printed.
 
 #### Modify the config file
 
-Open the file in another tab, then save your modification and go back to the tab demo to execute the task again:
+Open the file, then save your modification and go back to the tab demo to execute the task again:
 
-```text
+```bash
+nano /root/hello-test/ostrich.yaml
+```{{exec}}
+
+<!--rockdemo
+**or**
+
+```
 /root/hello-test/ostrich.yaml
 ```{{open}}
+-->
 
 Now run the task again, and check that the message has changed:
 
 ```bash
 ostd run sayhello
 ```{{exec}}
+
 
 #### Execute in debug mode
 

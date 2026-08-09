@@ -1,4 +1,4 @@
-# Deploy like an Ostrich !
+# Deploy like an Ostrich with ostd CLI !
 
 ```text
                               _              
