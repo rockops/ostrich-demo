@@ -100,7 +100,6 @@ To bootstrap a config file you can use the following command:
 mkdir -p /root/hello-test
 cd /root/hello-test
 ostd template config hello > ostrich.yaml
-chmod 777 ostrich.yaml
 ```{{exec}}
 
 This will produce a sample config file for this osplate. It contains all the default values that you can modify.

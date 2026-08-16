@@ -1,5 +1,9 @@
 # Deploy like an Ostrich with ostd CLI !
 
+<p align="center">
+  <img src="../images/ostrich.png" style="width: 200px">
+</p>
+
 ```text
                               _              
      ____   ___  _____  ___  |_| ___  __   _  

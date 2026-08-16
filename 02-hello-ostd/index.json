@@ -15,16 +15,6 @@
     "assets": {
       "host01": [
         {
-          "file": "secret/github.txt",
-          "target": "~/secret",
-          "chmod": "+r"
-        },
-        {
-          "file": "secret/github_read_osplates.txt",
-          "target": "~/secret",
-          "chmod": "+r"
-        },
-        {
           "file": "hello-test/**",
           "target": "~/",
           "chmod": "+w"

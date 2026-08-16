@@ -16,11 +16,6 @@
     "assets": {
       "host01": [
         {
-          "file": "secret/**",
-          "target": "~/",
-          "chmod": "+r"
-        },
-        {
           "file": "config/.bashrc",
           "target": "~/",
           "chmod": "+r"
