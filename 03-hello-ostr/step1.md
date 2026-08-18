@@ -3,7 +3,7 @@
 ## Install the Ostrich agent on the target cluster
 
 ```bash
-helm -n ostrich install --create-namespace ostrich oci://ghcr.io/rockops/helm/ostrich-sdk:0.2.8
+helm -n ostrich install --create-namespace ostrich oci://ghcr.io/rockops/helm/ostrich-sdk
 ```{{exec}}
 
 ### Verify the pods

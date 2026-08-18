@@ -1,6 +1,6 @@
 {
-  "title": "Hello Ostrich SDK with ostd CLI !",
-  "description": "Use the ostd cli",
+  "title": "Hello Ostrich SDK with ostr CLI !",
+  "description": "Use the ostr cli",
   "details": {
     "intro": {
       "text": "intro.md",
