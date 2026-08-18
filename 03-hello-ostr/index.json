@@ -1,0 +1,28 @@
+{
+  "title": "Hello Ostrich SDK with ostd CLI !",
+  "description": "Use the ostd cli",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "foreground.sh"
+    },
+    "steps": [
+      {
+        "title": "Simple commands",
+        "text": "step1.md"
+      }
+    ],
+    "assets": {
+      "host01": [
+        {
+          "file": "hello-test/**",
+          "target": "~/",
+          "chmod": "+w"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
